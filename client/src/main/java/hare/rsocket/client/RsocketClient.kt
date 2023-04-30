@@ -1,17 +1,12 @@
 package hare.rsocket.client
 
 import io.ktor.client.HttpClient
-import io.ktor.client.plugins.websocket.WebSockets
 import io.rsocket.kotlin.ExperimentalMetadataApi
 import io.rsocket.kotlin.RSocket
-import io.rsocket.kotlin.core.RSocketConnector
-import io.rsocket.kotlin.core.WellKnownMimeType
-import io.rsocket.kotlin.ktor.client.RSocketSupport
 import io.rsocket.kotlin.ktor.client.rSocket
 import io.rsocket.kotlin.metadata.RoutingMetadata
 import io.rsocket.kotlin.metadata.metadata
 import io.rsocket.kotlin.payload.Payload
-import io.rsocket.kotlin.payload.PayloadMimeType
 import io.rsocket.kotlin.payload.buildPayload
 import io.rsocket.kotlin.payload.data
 import kotlinx.coroutines.cancel
@@ -24,20 +19,9 @@ import kotlinx.coroutines.sync.withLock
 
 @OptIn(ExperimentalMetadataApi::class)
 class RsocketClient(
-    private val httpClient: HttpClient = HttpClient {
-        install(WebSockets)
-        install(RSocketSupport){
-            connector = RSocketConnector {
-                this.connectionConfig {
-                    payloadMimeType = PayloadMimeType(
-                        data = WellKnownMimeType.ApplicationCloudeventsJson,
-                        metadata = WellKnownMimeType.MessageRSocketRouting
-                    )
-                }
-            }
-        }
-    }
-){
+    private val httpClient: HttpClient
+) {
+
     private var rsocket: RSocket? = null
 
     private val _status: MutableStateFlow<RsocketStatus> = MutableStateFlow(RsocketStatus.DisConnect)
@@ -45,7 +29,6 @@ class RsocketClient(
         get() = _status
 
     private val lock = Mutex()
-
     suspend fun connect(
         address: String,
         port: Int,
@@ -68,6 +51,7 @@ class RsocketClient(
             if(status.value !is RsocketStatus.Connect) return
             rsocket?.cancel()
             rsocket = null
+            _status.value = RsocketStatus.DisConnect
         }
     }
 
