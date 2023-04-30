@@ -1,0 +1,15 @@
+ext {
+    PUBLISH_GROUP_ID = "io.github.khm0651"
+    PUBLISH_VERSION = "0.0.1"
+    PUBLISH_ARTIFACT_ID = "androidRsocketClient"
+    PUBLISH_DESCRIPTION = "Android Rsocket Client Library"
+    PUBLISH_URL = "https://github.com/khm0651/AndroidRsocketClient"
+    PUBLISH_LICENSE_NAME = "Apache License"
+    PUBLISH_LICENSE_URL = "https://github.com/khm0651/AndroidRsocketClient/blob/main/LICENSE"
+    PUBLISH_DEVELOPER_ID = "khm0651"
+    PUBLISH_DEVELOPER_NAME = "HaMin Kwak"
+    PUBLISH_DEVELOPER_EMAIL = "khm0651@gmail.com"
+    PUBLISH_SCM_CONNECTION = "scm:git:github.com/khm0651/AndroidRsocketClient.git"
+    PUBLISH_SCM_DEVELOPER_CONNECTION = "scm:git:ssh://github.com:khm0651/AndroidRsocketClient.git"
+    PUBLISH_SCM_URL = "https://github.com/khm0651/AndroidRsocketClient/tree/main"
+}

@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+apply(from="${rootDir}/scripts/publish-module.gradle")
+
 android {
     namespace = "hare.rsocket.client"
     compileSdk = 33
