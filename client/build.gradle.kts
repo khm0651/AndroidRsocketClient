@@ -1,9 +1,8 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("com.vanniktech.maven.publish")
 }
-
-apply(from="${rootDir}/scripts/publish-module.gradle")
 
 android {
     namespace = "hare.rsocket.client"
